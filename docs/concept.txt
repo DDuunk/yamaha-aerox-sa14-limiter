@@ -1,0 +1,3 @@
+cdi (computertje) -> (via bepaalde draad) -> arduino.
+arduino: als signaal == 0 is (of < laag getal) -> stuur signaal == 45km/h naar de pickup.
+arduino: als signaal > 0 is (of > laag getal) -> stuur het orginele signaal door naar de pickup.

@@ -2,25 +2,24 @@
 
 void setup() {
     Serial.begin(9600);
-    /** 
-     * TODO: 
-     * pinMode INPUT 
-     * INPUT equals the wire between the CDI and
-     * the pickup
-     * 
-     * TODO: pinMode OUPUT 
-     * 
-     */
+    
+    pinMode(LED, OUTPUT);
+    pinMode(detectorpin, INPUT_PULLUP);
 }
 
-void loop() {
-    /**
-     * TODO:
-     * if INPUT == 0 (or < defined number)
-     * send a signal that equals to 45km/h to 
-     * the pickup
-     * 
-     * else if INPUT > 0 (or > defined number)
-     * send the original signal to the pickup
-     */
+void loop(){ 
+    bool prevdetectorstate = digitalRead(detectorpin);
+    bool detectorstate;
+    begintijd = millis();
+    
+    while ((millis() - begintijd) < 500) {
+    detectorstate = digitalRead(detectorpin);
+    if ((prevdetectorstate != detectorstate) && (detectorstate == true)) {
+        pulsen++;
+    }
+    prevdetectorstate = detectorstate;
+    }
+    
+    Serial.println((pulsen*15), DEC);
+    pulsen = 0;
 }

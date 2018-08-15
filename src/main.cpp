@@ -8,18 +8,24 @@ void setup() {
 }
 
 void loop(){ 
-    bool prevdetectorstate = digitalRead(detectorpin);
-    bool detectorstate;
-    begintijd = millis();
+    prevdetectorstate = digitalRead(detectorpin);
+    beginTime = millis();
     
-    while ((millis() - begintijd) < 500) {
-    detectorstate = digitalRead(detectorpin);
-    if ((prevdetectorstate != detectorstate) && (detectorstate == true)) {
-        pulsen++;
-    }
-    prevdetectorstate = detectorstate;
+    while ((millis() - beginTime) < 500) {
+        detectorstate = digitalRead(detectorpin);
+        if ((prevdetectorstate != detectorstate) && (detectorstate == true)) {
+            pulse++;
+        }
+        prevdetectorstate = detectorstate;
     }
     
-    Serial.println((pulsen*15), DEC);
-    pulsen = 0;
+    Serial.println((pulse*15), DEC);
+
+    if ((pulse*15) >= 50) {
+        digitalWrite(LED, HIGH);
+    } else {
+        digitalWrite(LED, LOW);
+    }
+
+    pulse = 0;
 }

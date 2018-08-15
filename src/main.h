@@ -8,8 +8,10 @@
 #define LED 2
 #define detectorpin 3
 
-unsigned long begintijd = millis();
-unsigned int pulsen = 0;
+unsigned long beginTime = millis();
+unsigned int pulse = 0;
+bool detectorstate;
+bool prevdetectorstate;
 
 void setup();
 void loop();

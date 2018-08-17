@@ -5,8 +5,8 @@
 
 #include "Arduino.h"
 
-#define LED 2
-#define detectorpin 3
+#define relayPin 2
+#define detectorPin 3
 
 unsigned long beginTime = millis();
 unsigned int pulse = 0;

@@ -3,16 +3,16 @@
 void setup() {
     Serial.begin(9600);
     
-    pinMode(LED, OUTPUT);
-    pinMode(detectorpin, INPUT_PULLUP);
+    pinMode(relayPin, OUTPUT);
+    pinMode(detectorPin, INPUT_PULLUP);
 }
 
 void loop(){ 
-    prevdetectorstate = digitalRead(detectorpin);
+    prevdetectorstate = digitalRead(detectorPin);
     beginTime = millis();
     
     while ((millis() - beginTime) < 500) {
-        detectorstate = digitalRead(detectorpin);
+        detectorstate = digitalRead(detectorPin);
         if ((prevdetectorstate != detectorstate) && (detectorstate == true)) {
             pulse++;
         }
@@ -21,10 +21,10 @@ void loop(){
     
     Serial.println((pulse*15), DEC);
 
-    if ((pulse*15) >= 50) {
-        digitalWrite(LED, HIGH);
+    if ((pulse*15) >= 40) {
+        digitalWrite(relayPin, LOW);
     } else {
-        digitalWrite(LED, LOW);
+        digitalWrite(relayPin, HIGH);
     }
 
     pulse = 0;

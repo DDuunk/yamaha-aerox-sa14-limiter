@@ -1,69 +1,94 @@
 \documentclass[a4paper]{article}
-\usepackage{listings}    
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}   
 \usepackage{hyperref}
-\usepackage{graphicx} 
-\usepackage[T1]{fontenc}
-\graphicspath{ {./images/} }   
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{lipsum}
 
-\begin{document}
-\title{Yamaha Aerox Sa14 Limiter Concept}
+\renewcommand{\arraystretch}{1.5}
+
+\graphicspath{ {./images/} }  
+\bibliographystyle{plain} 
+
+\title{ \Huge{Yamaha Aerox Sa14 Limiter Concept} }
 \author{Kasper Ederzeel, Dylan Duunk}
 \date{\today}
-\maketitle
+
+\begin{document}
+
+\begin{titlepage}
+    \maketitle
+\end{titlepage}    
 
 \pagenumbering{roman}
+
+\newpage
+
+\begin{abstract}
+    \noindent
+    Many people nowadays own a scooter.
+    These scooters are often capable of reaching speeds of 60+ km/h.
+    Those speeds are much higher than is permitted by the law.
+    That is why the maximum speed of store bought scooters is limited to 45 km/h.
+    \\ \\
+    This is among others done with a vario ring.
+    Many people choose to remove this vario ring so that the maximum speed of the scooter is over 45 km/h.
+    The disadvantage of this is that you easily get caught speeding.
+    Most of the times when you get caugt your scooter will be tested for the maximum speed of the scooter.
+    You can bypass this by using a limiter, a limiter is a device that makes the scooter's maximum speed lower in certain circumstances.
+    That way the scooter cannot drive faster than officially permitted.
+    \\
+    For example a limiter is controlled by plugging in a headphone jack or a flipping a switch. 
+
+    \vspace{7px}
+    \begin{center}
+        \textit{''But what if you were to automate this process?''}
+    \end{center}
+\end{abstract}
+
 \newpage
 \tableofcontents
 \newpage
 \pagenumbering{arabic}
 
+\nocite{*}
+
 \section{Concept}
-We are planning to make a Yamaha Aerox Sa14 Limiter using an Arduino. 
-This is how we are planning to do this: \\
-There is running a wire between the CDI and the Pickup Coil which transfers a signal equal to a value in km/h. 
-This signal is picked up by an Arduino which checks the signal. \\
-If this signal == 0 (or < specified number) the arduino sends a signal equal to a signal of 45km/h to the pickup coil. \\
-If this signal is > 0 (or > specified number) the arduino sends the original signal to the pickup coil.
+This is the idea: 
+\\ \\
+When a scooter is on the roller conveyor (a machine that measures the maximum speed of a scooter), only the rear wheel is on the roller conveyor.
+The front wheel is standing still, this gives us the opportunity to check whether the front wheel is moving or not.
+\\ \\
+If the front wheel is not moving, the scooter is either on a roller conveyor or is standing still.
+This is when you want the limiter to be on and the scooter to run at 45 km/h.
+As soon as the front wheel starts moving for a set amount of time you can assume the scooter is moving.
+This is when you want the limiter to be off and the scooter to run above 45 km/h.
+\\ \\
+A way of checking if the front wheel is moving is to use a sensor, in this case an hall-sensor on the front wheel.
+If the signal of this sensor is above a threshold value for a set amount of time, we assume the scooter is moving.
+If not we assume the scooter is either on a roller conveyor or standing still.
+\\ 
+This signal is processed by an Arduino, this is the brain of our limiter.
+The Arduino check the signal of the hall-sensor and controls the limiter.
+\\ \\ 
+As of limiting the scooter we make use of an capacitor, in our case a 2.2$\mu F$ capacitor.
+When connecting this capacitor between the signal wire from the CDI (see figure \ref{fig:cdi_pinout}) and the GND we limit the scooter to around 40 km/h.
+\begin{figure}[h]
+    \caption{CDI Pinout}
+    \centering
+    \includegraphics[scale=0.3]{CDI-Pinout.jpg}
+    \label{fig:cdi_pinout}
+\end{figure}
+\\
+If using a capacitor lower than 2.2$\mu F$ the scooter is limited to a lower km/h. 
+When using a capacitor higher than 2.2$\mu F $ the scooter is limited to a higher km/h, eventually capping out on the maximum speed.
+The connection between between the signal wire from the CDI and the GND can be controlled using a relay, this acts like a swith which can be controlled with the Arduino.
+\\ \\
+This makes the process of limiting a scooter automated.
+\newpage
 
-\subsection{Capacitor Discharge Ignition}
-What is a CDI System? 
-A Capacitor Discharge Ignition is an electronic ignition device that stores an electrical 
-charge and then discharges it throgh an ignition coil
-in order to produce a powerful spark from the spark plugs in a petrol engine.
-Here the ignition is provided by the capacitor charge.
-The capacitor simply charges and discharges within a fracton of time
-making it possible to create sparks. 
+\bibliography{literature}
 
-\subsubsection{Working principle of an CDI System}
-A capacitor discharge ignition works by passing an electrical current over a capacitor.
-This type of ignition builds up a charge quickly. 
-A CDI ignition starts by generating a charge and storing it up before sending
-it out to the spark plug in order to ignite the engine. \\ \\
-This power passes through a capacitor and is transferred to an ignition coil that helps
-boost the power by acting as a transformer and allowing the energy pass through it instead
-of catching any of it. \\ \\
-The CDI ignition systems, therefore allow the engine to keep running as long as there is a charge
-in the power source. The block diagram of CDI shown below. \\ \\
-\includegraphics[scale=0.8]{CDI}
-
-\subsubsection{Working of Capacitor Discharge Ignition}
-A Capacitor Discharge Ignition consists of several parts and is integrated with the ignition system of
-a vehicle. The foremost parts of a CDI include the stator, charging coil, hall sensor, flywheel and the timing mark. \\ \\
-\includegraphics[scale=0.6]{SETUP_CDI}
-
-\subsection{Pickup Coil}
-The Pickup Coil is responsible for providing the timing signal to the ignition control box on modern motorcycles
-with solid-state ignition systems. The majority of motorcycles from the late 1970's and up use this system for reliable, accurate,
-xand low maintenance ignition control. On previous models, points-controlled systems were used, and while cheap and simple, they required 
-routine maintenance and component replacement to ensure reliability.
-\subsubsection{CDI and Solid State Ignition Systems}
-
-\includegraphics[scale=0.7]{pulser-coil-and-timing} \\ \\
-Modern ignition systems use a solid state (semiconductor) controller to handle the ignition spark timing. 
-The control box, often called a CDI box, or black box, handles multiple functions. 
-The internal electronics are either powered from the battery (DC ignition systems, most street motorcycles), or in AC directly from the stator (most dirt/offroad motorcycles). 
-Current from either the stator or the battery is used to charge up an internal capacitor. 
-This capacitor is then discharged through the ignition coil via the spark plug to generate the very high voltage necessary for a good spark. 
-The CDI box has digitally stored timing maps, to handle advance of the ignition depending on RPM, and sometimes other variables, such as a throttle position sensor (often called TPS, a sensor which varies it's resistance based on the opening of the throttle). 
-The CDI box is fed timing data from the Pulser Coil, which produces a short duration, low current, high voltage pulse in relation to the Top Dead Center (TDC) piston location in the engine. 
 \end{document}

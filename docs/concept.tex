@@ -18,19 +18,22 @@
 \pagenumbering{arabic}
 
 \section{Concept}
-We are planning to make a Yamaha Aerox Sa14 Limiter using an Arduino. This is how we are planning to do this: \\
+We are planning to make a Yamaha Aerox Sa14 Limiter using an Arduino. 
+This is how we are planning to do this: \\
 There is running a wire between the CDI and the Pickup Coil which transfers a signal equal to a value in km/h. 
 This signal is picked up by an Arduino which checks the signal. \\
 If this signal == 0 (or < specified number) the arduino sends a signal equal to a signal of 45km/h to the pickup coil. \\
 If this signal is > 0 (or > specified number) the arduino sends the original signal to the pickup coil.
+
 \subsection{Capacitor Discharge Ignition}
-What is a CDI System? A Capacitor Discharge Ignition is an
-electronic ignition device that stores an electrical 
+What is a CDI System? 
+A Capacitor Discharge Ignition is an electronic ignition device that stores an electrical 
 charge and then discharges it throgh an ignition coil
 in order to produce a powerful spark from the spark plugs in a petrol engine.
 Here the ignition is provided by the capacitor charge.
 The capacitor simply charges and discharges within a fracton of time
 making it possible to create sparks. 
+
 \subsubsection{Working principle of an CDI System}
 A capacitor discharge ignition works by passing an electrical current over a capacitor.
 This type of ignition builds up a charge quickly. 
@@ -42,16 +45,19 @@ of catching any of it. \\ \\
 The CDI ignition systems, therefore allow the engine to keep running as long as there is a charge
 in the power source. The block diagram of CDI shown below. \\ \\
 \includegraphics[scale=0.8]{CDI}
+
 \subsubsection{Working of Capacitor Discharge Ignition}
 A Capacitor Discharge Ignition consists of several parts and is integrated with the ignition system of
 a vehicle. The foremost parts of a CDI include the stator, charging coil, hall sensor, flywheel and the timing mark. \\ \\
 \includegraphics[scale=0.6]{SETUP_CDI}
+
 \subsection{Pickup Coil}
 The Pickup Coil is responsible for providing the timing signal to the ignition control box on modern motorcycles
 with solid-state ignition systems. The majority of motorcycles from the late 1970's and up use this system for reliable, accurate,
-and low maintenance ignition control. On previous models, points-controlled systems were used, and while cheap and simple, they required 
+xand low maintenance ignition control. On previous models, points-controlled systems were used, and while cheap and simple, they required 
 routine maintenance and component replacement to ensure reliability.
 \subsubsection{CDI and Solid State Ignition Systems}
+
 \includegraphics[scale=0.7]{pulser-coil-and-timing} \\ \\
 Modern ignition systems use a solid state (semiconductor) controller to handle the ignition spark timing. 
 The control box, often called a CDI box, or black box, handles multiple functions. 

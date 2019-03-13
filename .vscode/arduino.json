@@ -1,6 +1,7 @@
 {
-    "board": "arduino:avr:nano",
-    "port": "COM3",
+    "board": "arduino:avr:pro",
+    "port": "COM6",
     "sketch": "src\\main.cpp",
-    "configuration": "cpu=atmega328"
+    "configuration": "cpu=16MHzatmega328",
+    "programmer": "USBasp"
 }
